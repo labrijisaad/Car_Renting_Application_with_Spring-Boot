@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Pay Reservation</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+
+<div class="container">
+    <h3>Pay reservation</h3>
+    <img alt="Payment icons..." src="/Images/payment.png">
+
+    <div class="row">
+        <div class="col-25">
+            Total costs:
+        </div>
+        <div class="col-75">
+            <b>
+                <text th:text="${' $' + amountToPay * 100 }"></text>
+            </b>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-75">
+            <form th:action="@{/user/browsecars/savereservation}" th:method="PUT">
+                <input style="width: 200px" type="submit" value="Pay and complete reservation">
+                <input name="_method" type="hidden" value="PUT">
+                <input th:name="reservedCarIdsInString" th:value="${reservedCarIdsInString}" type="hidden">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<ul th:replace="page-layout :: userNavBar"></ul>
+
+<div class="container">
+    <h2 th:text="${'Welcome' + ' ' + currentUser.firstName + ' ' + currentUser.lastName + ' &#128075'}"></h2>
+</div>
+
+<div class="container">
+
+    <h3>Notifications &#128276;</h3>
+
+    <div th:if="${carsWithFines.size() == 0 && currentUser.notifications.size() == 0}">
+        <p>There are no notifications.</p>
+    </div>
+
+    <div th:if="${currentUser.notifications.size() > 0}">
+        <div class="row" th:each="notification : ${currentUser.notifications}">
+            <div class="col-25">
+                <text th:text="${notification.notificationDate}"></text>
+            </div>
+            <div class="col-75" style="width: 90%">
+                <text th:text="${notification.notificationMessage}"></text>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${carsWithFines.size() > 0}">
+        <p style="color: red">WARNING</p>
+        <p th:text="${'The return date for one or more cars has expired' + ' ' + currentUser.getFirstName + '. '}"></p>
+        <p> If possible, extend the return date or return the car (s)
+            to customer service as soon as possible to avoid higher fines.
+            Until all late cars are returned to the custumer service, no new reservations can be made.</p>
+
+        <table id="tablestyle">
+            <tr>
+                <th>Car name</th>
+                <th>Owner</th>
+                <th>Fine</th>
+            </tr>
+            <tr th:each="car : ${carsWithFines}">
+                <td th:text="${car.key.carName}"></td>
+                <td th:text="${car.key.owner}"></td>
+                <td style="color:red" th:if="${car.value > 0}" th:text="${'$ ' + car.value}"></td>
+                <td th:if="${car.value == 0}" th:text="${'$ ' + car.value}"></td>
+            </tr>
+        </table>
+
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

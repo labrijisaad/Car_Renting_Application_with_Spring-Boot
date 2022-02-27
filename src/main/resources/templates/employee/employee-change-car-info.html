@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Change car info</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<ul th:replace="page-layout :: employeeNavBar"></ul>
+<div class="container">
+    <h3>Change car information</h3>
+
+
+    <form action="/employee/cars/savecarchange" th:method="PUT" th:object="${car}">
+        <div class="row">
+            <div class="col-50">
+                <Label>Car ID: </Label>
+            </div>
+            <div class="col-75">
+                <label th:text="${car.carId}"></label>
+                <input th:field="${car.carId}" th:value="${car.carId}" type="hidden">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <Label>Car name: </Label>
+            </div>
+            <div class="col-75">
+                <input required="required" th:field="${car.carName}" th:value="${car.carName}" type="text"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label>Owner:</label>
+            </div>
+            <div class="col-75">
+                <input required="required" th:field="${car.owner}" th:value="${car.owner}" type="text"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label>Release year:</label>
+            </div>
+            <div class="col-75">
+                <input required="required" th:field="${car.releaseYear}" th:value="${car.releaseYear}" type="number"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label>Edition:</label>
+            </div>
+            <div class="col-75">
+                <input required="required" th:field="${car.edition}" th:value="${car.edition}" type="number"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label>Return date:</label>
+            </div>
+            <div class="col-75" th:if="${car.theUser != null}">
+                <input required="required" th:field="${car.returnDate}" th:value="${car.returnDate}" type="text">
+            </div>
+            <div class="col-75" th:if="${car.theUser == null}">
+                <label>No return date available.</label>
+            </div>
+            <div class="col-75" th:if="${car.theUser != null}">
+                <Label>DD-MM-YYYY</label>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label>Current user:</label>
+            </div>
+            <div class="col-75">
+                <label th:if="${car.theUser == null}">No current user.</label>
+                <label th:if="${car.theUser != null}"
+                       th:text="${car.theUser.firstName} + ' ' +  ${car.theUser.lastName}"></label>
+            </div>
+            <div class="col-75" style="width: 450px" th:if="${car.theUser != null}">
+                <input id="removeCurrentUser" name="removeCurrentUser" type="checkbox">
+                <input th:field="${car.theUser}" th:value="${car.theUser}" type="hidden">
+                <label for="removeCurrentUser">Remove current user.</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label>Reserved from:</label>
+            </div>
+            <div class="col-75" th:if="${car.reservedByUser != null}">
+                <input required="required" th:field=${car.startReservationDate} th:value="${car.startReservationDate}"
+                       type="text">
+            </div>
+            <div class="col-75" th:if="${car.reservedByUser == null}">
+                <label>No reservation date available.</label>
+            </div>
+            <div class="col-75" th:if="${car.reservedByUser != null}">
+                <label>DD-MM-YYYY</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label>Reserved until:</label>
+            </div>
+            <div class="col-75" th:if="${car.reservedByUser != null}">
+                <input required="required" th:field=${car.endReservationDate} th:value="${car.endReservationDate}"
+                       type="text">
+            </div>
+            <div class="col-75" th:if="${car.reservedByUser == null}">
+                <label>No reservation date available.</label>
+            </div>
+            <div class="col-75" th:if="${car.reservedByUser != null}">
+                <label>DD-MM-YYYY</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label>Reserved by user:</label>
+            </div>
+            <div class="col-75">
+                <label th:if="${car.reservedByUser == null}">No current user.</label>
+                <label th:if="${car.reservedByUser != null}"
+                       th:text="${car.reservedByUser.firstName} + ' ' +  ${car.reservedByUser.lastName}"></label>
+            </div>
+            <div class="col-75" style="width: 450px" th:if="${car.reservedByUser != null}">
+                <input id="removeReservation" name="removeReservation" type="checkbox">
+                <input th:field="${car.reservedByUser}" th:value="${car.reservedByUser}" type="hidden">
+                <label for="removeCurrentUser">Remove reservation and make car available.</label>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-50">
+            </div>
+            <div class="col-75">
+                <input type="submit" value="Submit">
+                <input name="_csrf" th:value="${_csrf.token}" type="hidden">
+                <input name="_method" th:value="PUT" type="hidden">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

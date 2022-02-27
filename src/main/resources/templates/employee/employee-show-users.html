@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Users</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<body>
+<ul th:replace="page-layout :: employeeNavBar"></ul>
+
+<div class="container">
+
+
+    <h3>Users</h3>
+
+    <div class="row">
+
+        <form method="GET" th:action="@{/employee/users/showusers}">
+            <div class="col-25">
+                <label for="firstName">First Name</label>
+            </div>
+            <div class="col-75">
+                <input id="firstName" name="firstName" type="text">
+            </div>
+
+            <div class="col-25">
+                <label for="lastName">Last Name</label>
+            </div>
+            <div class="col-75">
+                <input id="lastName" name="lastName" type="text">
+            </div>
+            <div>
+                <input type="submit" value="Search">
+            </div>
+        </form>
+
+        <form method="GET" th:action="@{/employee/users/showusers}">
+            <input name="showAllUsers" style="margin-left: 20px" type="submit" value="Show all users">
+        </form>
+    </div>
+    <br/>
+    <table id="tablestyle" th:if="${usersWithFines.size > 0}">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Fine</th>
+            <th style="width: 150px">Action</th>
+        </tr>
+
+        <tr th:each="user : ${usersWithFines}">
+            <td th:text="${user.key.firstName}"></td>
+            <td th:text="${user.key.lastName}"></td>
+            <td th:text="${user.key.email}"></td>
+            <td th:text="${user.key.phoneNumber}"></td>
+            <td style="color:red" th:if="${user.value > 0}" th:text="${'$ ' + user.value}"></td>
+            <td th:if="${user.value == 0}" th:text="${'$ ' + user.value}"></td>
+            <td>
+                <form method="GET" th:action="@{/employee/users/showuserinfo}">
+                    <input class="table" type="submit" value="Show user info">
+                    <input name="userId" th:value="${user.key.userId}" type="hidden">
+                    <input name="fine" th:value="${user.value}" type="hidden">
+                </form>
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+</body>
+</html>

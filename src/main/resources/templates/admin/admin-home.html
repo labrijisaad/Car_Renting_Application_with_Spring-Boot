@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+    <title>Home</title>
+</head>
+<body>
+
+<ul th:replace="page-layout :: adminNavBar"></ul>
+
+<div class="container">
+    <h2 th:text="${'Welcome' + ' ' + currentUser.firstName + ' ' + currentUser.lastName + ' &#128075'}"></h2>
+</div>
+
+<div class="container">
+    <h3>Notifications &#128276</h3>
+
+    <div th:if="${currentUser.notifications.size() == 0}">
+        <p th:text="${'There are no notifications for you' + ' ' + currentUser.getFirstName + '. '}"></p>
+    </div>
+
+    <div th:if="${currentUser.notifications.size() > 0}">
+        <div class="row" th:each="notification : ${currentUser.notifications}">
+            <div class="col-25">
+                <text th:text="${notification.notificationDate}"></text>
+            </div>
+            <div class="col-75" style="width: 90%">
+                <text th:text="${notification.notificationMessage}"></text>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

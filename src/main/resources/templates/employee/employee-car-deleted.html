@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Car deleted</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<div class="container">
+    <h3>Car is deleted successfully!</h3>
+
+    <div class="row">
+        <form method="GET" th:action="@{/employee/cars/showcars}">
+            <input type="submit" value="Go back to catalog">
+        </form>
+    </div>
+</div>
+</body>
+</html>

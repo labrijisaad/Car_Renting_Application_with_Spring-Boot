@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Manage accounts</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<ul th:replace="page-layout :: adminNavBar"></ul>
+
+<div class="container">
+    <h3>Manage Accounts</h3>
+
+    <div class="row">
+        <form method="GET" th:action="@{/admin/manageaccounts}">
+            <div class="col-25">
+                <label for="firstName">First Name</label>
+            </div>
+            <div class="col-75">
+                <input id="firstName" name="firstName" th:value="${firstName}" type="text">
+            </div>
+
+            <div class="col-25">
+                <label for="lastName">Last Name</label>
+            </div>
+            <div class="col-75">
+                <input id="lastName" name="lastName" th:value="${lastName}" type="text">
+            </div>
+            <div>
+                <input type="submit" value="Search">
+            </div>
+        </form>
+    </div>
+    <br/>
+
+    <table id="tablestyle" th:if="${users.size > 0}">
+        <tr>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Role</th>
+            <th style="width: 100px">Select Account</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.userName}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.City}"></td>
+            <td>
+                <text th:if="${user.role.equals('ROLE_USER')}">USER</text>
+                <text th:if="${user.role.equals('ROLE_EMPLOYEE')}">EMPLOYEE</text>
+                <text th:if="${user.role.equals('ROLE_ADMIN')}">ADMIN</text>
+            </td>
+            <td>
+                <form method="GET" th:action="@{/admin/manageaccount}">
+                    <input class="table" type="submit" value="Select">
+                    <input name="userId" th:value="${user.userId}" type="hidden">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

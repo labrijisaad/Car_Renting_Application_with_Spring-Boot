@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Pay fine</title>
+
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+
+<div class="container">
+
+    <h3>Extend car</h3>
+
+    <table id="tablestyle">
+        <tr>
+            <th>Car name</th>
+            <th>Owner</th>
+        </tr>
+        <tr>
+            <td th:text="${car.carName}"></td>
+            <td th:text="${car.owner}"></td>
+        </tr>
+    </table>
+    <br/><br/>
+    You are trying to extend the return date of a car that should have been returned to the library on <b>
+    <text th:text="${car.returnDate}"/>
+</b>.
+    Since it wasn't extended or returned on time, a fine has built-up of <b>$
+    <text th:text="${fine}"/>
+</b>. The return date for the car
+    can be extended when the fine is paid. The original return date will be extended by <b>
+    <text th:text="${weeksToExtend}"/>
+</b> week(s).
+    <br/><br/>
+
+    <div class="row">
+        <div class="col-75">
+            <form method="POST" th:action="@{/user/yourcars/dopayment}">
+                <input style="width: 230px" type="submit" value="Pay fine and extend return date">
+                <input th:name="fineAmount" th:value="${fine}" type="hidden">
+                <input th:name="weeksToExtend" th:value="${weeksToExtend}" type="hidden">
+                <input th:name="carId" th:value="${car.carId}" type="hidden">
+            </form>
+        </div>
+        <div class="col-75">
+            <form method="GET" th:action="@{/user/yourcars}">
+                <input style="width : 230px; background-color: red;" type="submit" value="Cancel">
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.tymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Orders</title>
+</head>
+<link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+<body>
+
+<ul th:replace="page-layout :: employeeNavBar"></ul>
+
+<div class="container">
+
+    <div th:if="${userId == null}">
+        <h3>Orders</h3>
+
+        <div class="row">
+            <form method="GET" th:action="@{/employee/orders}">
+                <div class="col-25">
+                    <label for="firstName">First name</label>
+                </div>
+                <div class="col-75">
+                    <input id="firstName" name="firstName" type="text">
+                </div>
+                <div class="col-25">
+                    <label for="lastName">Last name</label>
+                </div>
+                <div class="col-75">
+                    <input id="lastName" name="lastName" type="text">
+                </div>
+                <div class="col-50">
+                    <input style="margin-top: 2px" type="submit" value="Search">
+                </div>
+            </form>
+        </div>
+        <br/>
+
+        <div th:if="${users.size() > 0}">
+            <table id="tablestyle">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th style="width: 320px">Action</th>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.key.firstName}"></td>
+                    <td th:text="${user.key.lastName}"></td>
+                    <td th:text="${user.key.address}"></td>
+                    <td th:text="${user.key.city}"></td>
+                    <td>
+                        <form method="GET" th:action="@{/employee/orders}">
+                            <input class="table" style="margin-right: 10px" th:if="${user.value == 0}" type="submit"
+                                   value="Select user">
+                            <text style="float: left; padding-top: 15px; padding-right: 52px;"
+                                  th:if="${user.value > 0}">This user has a fine.
+                            </text>
+                            <input th:name="userId" th:value="${user.key.userId}" type="hidden">
+                        </form>
+
+                        <form method="GET" th:action="@{/employee/users/showuserinfo}">
+                            <input class="table" style="background-color: orange" type="submit" value="User info">
+                            <input name="userId" th:value="${user.key.userId}" type="hidden">
+                            <input name="fine" th:value="${user.value}" type="hidden">
+                        </form>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div th:if="${userId != null}">
+        <h3>User Selected</h3>
+
+        <div class="row">
+            <div class="col-25">
+                <text>Name:</text>
+            </div>
+            <div class="col-50">
+                <text th:text="${user.firstName + ' ' + user.lastName}"></text>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <text>Address:</text>
+            </div>
+            <div class="col-50">
+                <text th:text="${user.address}"></text>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-25">
+                <text>City:</text>
+            </div>
+            <div class="col-50">
+                <text th:text="${user.city}"></text>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container" th:if="${user != null}">
+    <h3>Selected cars</h3>
+    <div th:if="${selectedCarObjects.size() == 0}">
+        <p>Please select cars.</p>
+    </div>
+    <div th:if="${selectedCarObjects.size() > 0}">
+        <table id="tablestyle">
+            <tr>
+                <th>Car name</th>
+                <th>Owner</th>
+                <th>Release Year</th>
+                <th>Edition</th>
+                <th style="width: 200px">Remove from List</th>
+            </tr>
+            <tr th:each="car : ${selectedCarObjects}">
+                <td th:text=${car.carName}></td>
+                <td th:text="${car.owner}"></td>
+                <td th:text="${car.releaseYear}"></td>
+                <td th:text="${car.edition}"></td>
+                <td>
+                    <form>
+                        <input class="table" style="background-color:red; width: 195px" type="submit" value="Remove">
+                        <input name="removeCarId" th:value="${car.carId}" type="hidden">
+                        <input name="userId" th:value="${user.userId}" type="hidden">
+                        <input name="carName" th:value="${carName}" type="hidden">
+                        <input name="owner" th:value="${owner}" type="hidden">
+                        <input name="selectedCarIdsInString" th:value="${selectedCarIds}" type="hidden">
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="row">
+            <form method="GET" th:action="@{/employee/confirmorder}">
+                <input type="submit" value="Confirm order">
+                <input name="selectedCarIdsInString" th:value="${selectedCarIds}" type="hidden">
+                <input name="userId" th:value="${userId}" type="hidden">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container" th:if="${user != null}">
+    <h3>Browse cars</h3>
+
+    <form method="GET" th:action="@{/employee/orders}">
+        <div class="row">
+            <div class="col-25">
+                <label for="carName">Car name</label>
+            </div>
+            <div class="col-75">
+                <input id="carName" name="carName" th:value="${carName}" type="text">
+            </div>
+            <div class="col-25">
+                <label for="owner">Owner</label>
+            </div>
+            <div class="col-75">
+                <input id="owner" name="owner" th:value="${owner}" type="text">
+            </div>
+            <div class="col-50">
+                <input style="margin-top: 1px" type="submit" value="Search">
+                <input name="userId" th:value="${user.userId}" type="hidden">
+                <input name="selectedCarIdsInString" th:value="${selectedCraIds}" type="hidden">
+            </div>
+        </div>
+        <br/>
+    </form>
+
+    <div th:if="${searchedCars.size() > 0}">
+        <table id="tablestyle">
+            <tr>
+                <th>Car name</th>
+                <th>Owner</th>
+                <th>Release Year</th>
+                <th>Edition</th>
+                <th>Return Date</th>
+                <th>Reserved Until</th>
+                <th style="width: 200px">Select</th>
+            </tr>
+            <tr th:each="searchedCar : ${searchedCars}">
+                <td th:text="${searchedCar.carName}"></td>
+                <td th:text="${searchedCar.owner}"></td>
+                <td th:text="${searchedCar.releaseYear}"></td>
+                <td th:text="${searchedCar.edition}"></td>
+                <td th:text="${searchedCar.returnDate}"></td>
+                <td th:text="${searchedCar.endReservationDate}"></td>
+                <td>
+                    <div th:if="${searchedCar.reservedByUser != null}">
+
+                        <form method="GET" th:action="@{/employee/orders}">
+                            <input class="table" style="width: 195px"
+                                   th:if="${searchedCar.theUser == null && searchedCar.reservedByUser.userId == user.userId}"
+                                   type="submit" value="Select">
+                            <input name="userId" th:value="${user.userId}" type="hidden">
+                            <input name="carName" th:value="${carName}" type="hidden">
+                            <input name="owner" th:value="${owner}" type="hidden">
+                            <input name="selectedCarId" th:value="${searchedCar.carId}" type="hidden">
+                            <input name="selectedCarIdsInString" th:value="${selectedCarIds}" type="hidden">
+                        </form>
+
+                        <text th:if="${searchedCar.theUser == null && searchedCar.reservedByUser.userId != user.userId}">
+                            Someone reserved this car.
+                        </text>
+                    </div>
+                    <text th:if="${searchedCar.theUser != null && searchedCar.reservedByUser == null}">Car is still
+                        in use.
+                    </text>
+                    <text th:if="${searchedCar.theUser != null && searchedCar.reservedByUser != null}">Car is still
+                        in use.
+                    </text>
+
+
+                    <form method="GET" th:action="@{/employee/orders}">
+                        <input class="table"
+                               style="width: 195px"
+                               th:if="${searchedCar.theUser == null && searchedCar.reservedByUser == null}" type="submit" value="Select">
+                        <input name="userId" th:value="${user.userId}" type="hidden">
+                        <input name="carName" th:value="${carName}" type="hidden">
+                        <input name="owner" th:value="${owner}" type="hidden">
+                        <input name="selectedCarId" th:value="${searchedCar.carId}" type="hidden">
+                        <input name="selectedCarIdsInString" th:value="${selectedCarIds}" type="hidden">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

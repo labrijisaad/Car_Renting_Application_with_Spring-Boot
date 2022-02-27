@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Return date can not be extended</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+
+<div class="container">
+    <h3>Return date can not be extended</h3>
+
+    <p>The return date of the car you are trying to extend, cannot be extended. Possible reasons are:
+        <br/><br/>
+        - The maximum period of use is reached.<br/>
+        - The return date is already extended by 3 weeks.<br/>
+        - Someone else reserved the car.<br/><br/>
+
+        Please make sure to return this car on time to the customer service.
+    </p>
+
+
+    <div class="row">
+        <form method="GET" th:action="@{/user/yourcars}">
+            <input style="width: 200px" type="submit" value="Go back to your cars">
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Set Reservation to Ready For Pick-Up</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<div class="container">
+    <h3>Set car reservation to ready for pick-up</h3>
+    <p>Are you sure?</p>
+    <p>You are about to set this car's status to ready for pick-up:</p>
+
+    <div class="row">
+        <div class="col-50">
+            Car name:
+        </div>
+        <div class="col-75">
+            <text th:text="${car.carName}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            Owner:
+        </div>
+        <div class="col-75">
+            <text th:text="${car.owner}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            Release year:
+        </div>
+        <div class="col-75">
+            <text th:text="${car.releaseYear}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            Edition
+        </div>
+        <div class="col-75">
+            <text th:text="${car.edition}"></text>
+        </div>
+    </div>
+
+    <p><b>
+        <text th:text="${user.firstName + ' ' + user.lastName}">
+    </b> will receive a notification.
+    </p>
+
+    <div class="row">
+        <div class="col-50">
+            <form th:action="@{/employee/updatecarreservation}" th:method="PUT">
+                <input type="submit" value="Yes">
+                <input th:name="_method" th:value="PUT" type="hidden">
+                <input th:name="carId" th:value="${car.carId}" type="hidden">
+                <input th:name="userId" th:value="${user.userId}" type="hidden">
+            </form>
+        </div>
+        <div class="col-50">
+            <form method="GET" th:action="@{/employee/reservations}">
+                <input style="background-color: red" type="submit" value="No">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

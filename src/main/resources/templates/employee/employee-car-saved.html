@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Car Saved</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+
+<div class="container">
+    <h3>Car saved!</h3>
+    <br/>
+    <div class="row">
+        <div class="col-50">
+            <form th:action="@{/employee/cars}">
+                <input type="submit" value="Go back">
+            </form>
+        </div>
+        <div class="col-50">
+            <form th:action="@{/employee/cars/newcar}">
+                <input type="submit" value="Add another car">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

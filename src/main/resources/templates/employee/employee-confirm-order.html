@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Confirm order</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+
+<div class="container">
+    <h3>Confirm order</h3>
+
+    <div class="row">
+        <div class="col-25">
+            <text>Name</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.firstName + ' ' + user.lastName}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <text>Address</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.address}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <text>City</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.city}"></text>
+        </div>
+    </div>
+
+    <br/>
+
+    <table id="tablestyle">
+        <tr>
+            <th>Car name</th>
+            <th>Owner</th>
+            <th>Release Year</th>
+            <th>Edition</th>
+        </tr>
+        <tr th:each="car : ${selectedCars}">
+            <td th:text="${car.carName}"></td>
+            <td th:text="${car.owner}"></td>
+            <td th:text="${car.releaseYear}"></td>
+            <td th:text="${car.edition}"></td>
+        </tr>
+
+    </table>
+
+    <div class="row">
+        <div class="col-50">
+            <form th:action="@{/employee/saveorder}" th:method="PUT">
+                <input type="submit" value="Confirm">
+                <input th:name="_method" th:value="PUT" type="hidden">
+                <input name="selectedCarIdsInString" th:value="${selectedCarIds}" type="hidden">
+                <input name="userId" th:value="${user.userId}" type="hidden">
+            </form>
+        </div>
+
+        <div class="col-50">
+            <form method="GET" th:action="@{/employee/orders}">
+                <input style="background-color: red" type="submit" value="Go back">
+                <input name="selectedCarIdsInString" th:value="${selectedCarIds}" type="hidden">
+                <input name="userId" th:value="${user.userId}" type="hidden">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+</head>
+<body>
+
+<ul th:fragment="userNavBar">
+    <li><a href="/user">Home</a></li>
+    <li><a href="/user/yourcars">Your Cars</a></li>
+    <li><a href="/user/browsecars">Browse Cars</a></li>
+    <li><a href="/user/yourreservations">Your Reservations</a></li>
+    <li><a href="/user/FAQ">FAQ</a></li>
+    <li style="float:right"><a class="active" href="/logout">Logout</a></li>
+</ul>
+
+<ul th:fragment="employeeNavBar">
+    <li><a href="/employee">Home</a></li>
+    <li><a href="/employee/users/showusers">Users</a></li>
+    <li><a href="/employee/cars/showcars">Car Catalog</a></li>
+    <li><a href="/employee/orders">Place Order</a></li>
+    <li><a href="/employee/returnedcars">Return Cars</a></li>
+    <li><a href="/employee/reservations">Process Reservations</a></li>
+    <li style="float:right"><a class="active" href="/logout">Logout</a></li>
+</ul>
+
+<ul th:fragment="adminNavBar">
+    <li><a href="/admin">Home</a></li>
+    <li><a href="/admin/manageaccounts">Manage Accounts</a></li>
+    <li style="float:right"><a class="active" href="/logout">Logout</a></li>
+</ul>
+
+</body>
+</html>

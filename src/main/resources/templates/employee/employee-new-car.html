@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>New car</title>
+
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<ul th:replace="page-layout :: employeeNavBar"></ul>
+
+<div class="container">
+    <h3>Add new car to catalog</h3>
+
+
+    <form method="POST" th:action="@{/employee/cars/save}" th:object="${car}">
+        <div class="row">
+            <div class="col-50">
+                <label for="carName">Car Name</label>
+            </div>
+
+            <div class="col-75">
+                <input id="carName" name="carName" required="required" th:field="${car.carName}" type="text">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label for="owner">Owner</label>
+            </div>
+            <div class="col-75">
+                <input id="owner" name="owner" required="required" th:field="${car.owner}" type="text">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label for="releaseYear">Release year</label>
+            </div>
+            <div class="col-75">
+                <input id="releaseYear" name="releaseYear" required="required" th:field="${car.releaseYear}"
+                       type="number">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <label for="edition">Edition</label>
+            </div>
+            <div class="col-75">
+                <input id="edition" name="edition" required="required" th:field="${car.edition}" type="number">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+            </div>
+            <div class="col-75">
+                <input type="submit" value="Submit">
+            </div>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Manage Account</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+
+<div class="container">
+
+    <h3>Manage Account</h3>
+
+    <div class="row">
+        <div class="col-50">
+            <text>Username:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.userName}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            <text>First name:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.firstName}"></text>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-50">
+            <text>Last name:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.lastName}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            <text>Email:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.email}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            <text>Phone number:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.phoneNumber}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            <text>Address:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.address}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            <text>City:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.city}"></text>
+        </div>
+    </div>
+
+    <form th:action="@{/admin/confirmaccountsettings}" th:method="PUT">
+        <div class="row">
+            <div class="col-50">
+                <text>Account status:</text>
+            </div>
+
+            <div class="col-50">
+                <input id="accStatus" name="accStatus" th:checked="${user.enabled == true}" type="radio" value="true">
+                <text for="enabled">Account enabled</text>
+            </div>
+
+            <div class="col-50">
+                <input id="accStatus" name="accStatus" th:checked="${user.enabled == false}" type="radio" value="false">
+                <text for="accStatus">Account disabled</text>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-50">
+                <text>Role:</text>
+            </div>
+
+            <div class="col-50">
+                <input id="role" name="role" th:checked="${user.role.equals('ROLE_USER')}" type="radio"
+                       value="ROLE_USER">
+                <text for="role">User</text>
+            </div>
+
+            <div class="col-50">
+                <input id="role" name="role" th:checked="${user.role.equals('ROLE_EMPLOYEE')}" type="radio"
+                       value="ROLE_EMPLOYEE">
+                <text for="role">Employee</text>
+            </div>
+
+            <div class="col-50">
+                <input id="role" name="role" th:checked="${user.role.equals('ROLE_ADMIN')}" type="radio"
+                       value="ROLE_ADMIN">
+                <text for="role">Admin</text>
+            </div>
+
+        </div>
+
+
+        <br/>
+
+        <div class="row">
+            <div class="col-50">
+                <input type="submit" value="Save">
+                <input th:name="_method" th:value="PUT" type="hidden">
+                <input name="userId" th:value="${user.userId}" type="hidden">
+                <input th:value="${accStatus}" type="hidden">
+                <input th:value="${role}" type="hidden">
+    </form>
+</div>
+
+<div class="col-50">
+    <form th:action="@{/admin/manageaccounts}" th:method="GET">
+        <input style="background-color: red" type="submit" value="Cancel">
+    </form>
+</div>
+</div>
+
+</div>
+
+</body>
+</html>

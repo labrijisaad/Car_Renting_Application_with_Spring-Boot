@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Your Reservations</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<ul th:replace="page-layout :: userNavBar"></ul>
+<div class="container">
+
+    <h3>Your Reservations</h3>
+
+    <p th:if="${reservedCars.size() == 0}">You don't have any car reservations.</p>
+
+    <table id="tablestyle" th:if="${reservedCars.size() > 0}">
+        <tr>
+            <th>Car name</th>
+            <th>Owner</th>
+            <th>Release Year</th>
+            <th>Edition</th>
+            <th>Reserved From</th>
+            <th>Reserved Until</th>
+        </tr>
+        <tr th:each="car : ${reservedCars}">
+            <td th:text="${car.carName}"></td>
+            <td th:text="${car.owner}"></td>
+            <td th:text="${car.releaseYear}"></td>
+            <td th:text="${car.edition}"></td>
+            <td th:text="${car.startReservationDate}"></td>
+            <td th:text="${car.endReservationDate}"></td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

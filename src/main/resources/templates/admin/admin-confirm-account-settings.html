@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Confirm Account Changes</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+
+<div class="container">
+    <h3>Confirm account settings</h3>
+    <div class="row">
+        <div class="col-50">
+            <text>Username:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.userName}">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            <text>First name:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.firstName}">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            <text>Last name:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${user.lastName}">
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-50">
+            <text>Account enabled:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${accStatus}">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            <text>Role:</text>
+        </div>
+        <div class="col-75">
+            <text th:text="${role}">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            <form th:action="@{/admin/saveaccountsettings}" th:method="PUT">
+                <input type="submit" value="Confirm">
+                <input name="userId" th:value="${user.userId}" type="hidden">
+                <input name="accStatus" th:value="${accStatus}" type="hidden">
+                <input name="role" th:value="${role}" type="hidden">
+                <input th:name="_method" th:value="PUT" type="hidden">
+            </form>
+        </div>
+        <div class="col-50">
+            <form>
+                <input style="background-color: red" type="submit" value="cancel">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

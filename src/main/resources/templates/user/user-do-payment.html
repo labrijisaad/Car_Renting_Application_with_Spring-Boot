@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Payment</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<div class="container">
+    <h3>Payment</h3>
+    <img alt="Payment icon..." src="/Images/payment.png">
+
+    <div class="row">
+        <div class="col-50">
+            Car:
+        </div>
+        <div class="col-75">
+            <text th:text="${car.carName}"></text>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            Extend Period:
+        </div>
+        <div class="col-75">
+            <text th:text="${weeksToExtend + ' week(s)'}">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-50">
+            Fine:
+        </div>
+        <div class="col-75">
+            <text th:text="'$ ' + ${fineAmount}"/>
+        </div>
+    </div>
+    <br/>
+
+    <div class="row">
+        <div class="col-50">
+            <form th:action="@{/user/yourcars/extend}" th:method="PUT">
+                <input type="submit" value="Pay">
+                <input th:name="fineAmount" th:value="0" type="hidden">
+                <input th:name="weeksToExtend" th:value="${weeksToExtend}" type="hidden">
+                <input th:name="carId" th:value="${car.carId}" type="hidden">
+                <input th:name="_method" th:value="PUT" type="hidden">
+            </form>
+        </div>
+
+        <div class="col-50">
+            <form method="GET" th:action="@{user/yourcars}">
+                <input style="background-color: red" type="submit" value="Cancel payment">
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

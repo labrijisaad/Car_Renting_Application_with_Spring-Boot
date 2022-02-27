@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Reservations</title>
+    <link rel="stylesheet" th:href="@{/CSS/account-layout.css}" type="text/css">
+</head>
+<body>
+<ul th:replace="page-layout :: employeeNavBar"></ul>
+
+<div class="container">
+    <h3>Unprocessed reservations</h3>
+
+    <div th:if="${unprocessedReservations.size() == 0}">
+        <p>No unprocessed reservations &#128513;</p>
+    </div>
+
+    <div th:if="${unprocessedReservations.size() > 0}">
+        <table id="tablestyle">
+            <tr>
+                <th>Car name</th>
+                <th>Release Year</th>
+                <th>Edition</th>
+                <th>Reserved by</th>
+                <th>Reserved Until</th>
+                <th style="width: 260px">Ready for Pick Up &#128513;</th>
+            </tr>
+            <tr th:each="car : ${unprocessedReservations}">
+                <td th:text="${car.carName}"></td>
+                <td th:text="${car.releaseYear}"></td>
+                <td th:text="${car.edition}"></td>
+                <td th:text="${car.reservedByUser.firstName + ' ' + car.reservedByUser.lastName}"></td>
+                <td th:text="${car.endReservationDate}"></td>
+                <td>
+                    <form th:action="@{/employee/setreadyforpickup}" th:method="PUT">
+                        <input class="table" style="width: 250px" type="submit"
+                               value="Set car status to ready for pick-up">
+                        <input th:name="_method" th:value="PUT" type="hidden">
+                        <input name="carId" th:value="${car.carId}" type="hidden">
+                        <input name="userId" th:value="${car.reservedByUser.userId}" type="hidden">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <h3>Processed reservations</h3>
+    <div th:if="${processedReservations.size() == 0}">
+        <p>No processed car reservations &#128513;</p>
+    </div>
+
+    <div th:if="${processedReservations.size() > 0}">
+        <table id="tablestyle">
+            <tr>
+                <th>Car name</th>
+                <th>Owner</th>
+                <th>Release Year</th>
+                <th>Edition</th>
+                <th>Reserved by</th>
+                <th>Reserved Until</th>
+            </tr>
+            <tr th:each="car : ${processedReservations}">
+                <td th:text="${car.carName}"></td>
+                <td th:text="${car.owner}"></td>
+                <td th:text="${car.releaseYear}"></td>
+                <td th:text="${car.edition}"></td>
+                <td th:text="${car.reservedByUser.firstName + ' ' + car.reservedByUser.lastName}"></td>
+                <td th:text="${car.endReservationDate}"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+</body>
+</html>
