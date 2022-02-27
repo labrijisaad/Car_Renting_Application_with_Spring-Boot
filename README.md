@@ -29,7 +29,7 @@ Each account type has its own specific functionality.
 # Application Work Flow
 ![workflow drawio](https://user-images.githubusercontent.com/35704701/148619182-1ead2309-db9c-499d-ab4b-efd62fa5a67a.png)
 
--- user account --
+### user account 
 
 * User dashboard : 
   - 1
@@ -40,7 +40,7 @@ Each account type has its own specific functionality.
   - 2
 
  
--- Employee account --
+###  Employee account 
 
 * Employee dashboard:
   - 1
@@ -52,7 +52,7 @@ Each account type has its own specific functionality.
 * Manage cars :
   - 1
   
--- admin account --
+### admin account
 
 Admin dashboard: 
   - 1
